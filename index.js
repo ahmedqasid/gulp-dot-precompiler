@@ -7,7 +7,7 @@ var PluginError = gutil.PluginError;
 var fs = require('fs');
 var defs = {};
 
-const PLUGIN_NAME = 'gulp-dot-precompiler';
+const PLUGIN_NAME = 'gulp-dot-precompiler-es6';
 
 function getTemplateName(root, name, extension, separator) {
   var parts = name.split(path.sep);
@@ -52,7 +52,7 @@ function gulpDotify(options) {
     separator:  '.',
     extension:  '',
     dictionary: 'render',
-
+    useES6:false,
     //doT.js setting
     templateSettings: {
       evaluate:       /\{\{([\s\S]+?(\}?)+)\}\}/g,
@@ -91,8 +91,14 @@ function gulpDotify(options) {
       {
         this.emit('error', new PluginError(PLUGIN_NAME, code));
       }
-      file.contents = new Buffer([options.dictionary, '["', name, '"] = ', code, ';'].join(''));
-
+      if(options.useES6)
+      {
+        file.contents = new Buffer('export function ', name , code.substr(' function anonymous'.length), ';'].join(''));
+      }
+      else
+      {
+        file.contents = new Buffer([options.dictionary, '["', name, '"] = ', code, ';'].join(''));
+      }
       this.push(file);
       return callback();
     }.bind(this);
