@@ -1,5 +1,5 @@
 # gulp-dot-precompiler-es6
-This plugin is built on top of [gulp-dot-precompiler-es](https://github.com/kentliau/gulp-dot-precompiler) with support for ES6 syntax
+This plugin is built on top of [gulp-dot-precompiler](https://github.com/kentliau/gulp-dot-precompiler) with support for ES6 syntax
 
 
 
