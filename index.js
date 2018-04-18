@@ -52,7 +52,8 @@ function gulpDotify(options) {
     separator:  '.',
     extension:  '',
     dictionary: 'render',
-    useES6:false,
+    useES6:true,
+    useExportDefault:true,
     //doT.js setting
     templateSettings: {
       evaluate:       /\{\{([\s\S]+?(\}?)+)\}\}/g,
@@ -93,7 +94,8 @@ function gulpDotify(options) {
       }
       if(options.useES6)
       {
-        file.contents = new Buffer('export function ', name , code.substr(' function anonymous'.length), ';'].join(''));
+        let exportDeclaration = options.useExportDefault ? 'export default function ' : 'export function ';
+        file.contents = new Buffer([exportDeclaration, name ,'(', code.substr(' function anonymous'.length), ';'].join(''));
       }
       else
       {
